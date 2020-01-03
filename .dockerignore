@@ -1,0 +1,7 @@
+.dockerignore
+output_txt_files/
+**/*.sh
+Makefile
+README.md
+deploy.yml
+svc.yml
