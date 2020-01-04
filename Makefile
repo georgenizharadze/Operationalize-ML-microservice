@@ -12,7 +12,7 @@ setup:
 
 install:
     # This should be run from inside a virtualenv
-		pip install --upgrade pip && pip install --user -r requirements.txt
+		pip install --user --upgrade pip && pip install --user -r requirements.txt
 
 test:
     # Additional, optional, tests could go here
