@@ -1,42 +1,19 @@
-<include a CircleCI status badge, here>
+[![CircleCI](https://circleci.com/gh/georgenizharadze/Operationalize-ML-microservice.svg?style=svg)](https://circleci.com/gh/georgenizharadze/Operationalize-ML-microservice)
 
 ## Project Overview
 
-In this project, you will apply the skills you have acquired in this course to operationalize a Machine Learning Microservice API. 
+This project is about operationalizing an already trained ML algorithm as a microservice, in the form of a containerized app which can be deployed as a standalone container or on a Kubernetes cluster, to enable self-healing, scaling, rolling updates and rollbacks.    
 
-You are given a pre-trained, `sklearn` model that has been trained to predict housing prices in Boston according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on. You can read more about the data, which was initially taken from Kaggle, on [the data source site](https://www.kaggle.com/c/boston-housing). This project tests your ability to operationalize a Python flask app—in a provided file, `app.py`—that serves out predictions (inference) about housing prices through API calls. This project could be extended to any pre-trained machine learning model, such as those for image recognition and data labeling.
+The pre-trained `sklearn` model is based on the famous Boston housing data and predicts house price according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on. You can read more about the data, which was initially taken from Kaggle, on [the data source site](https://www.kaggle.com/c/boston-housing).
 
-### Project Tasks
+## Running the application
 
-Your project goal is to operationalize this working, machine learning microservice using [kubernetes](https://kubernetes.io/), which is an open-source system for automating the management of containerized applications. In this project you will:
-* Test your project code using linting
-* Complete a Dockerfile to containerize this application
-* Deploy your containerized application using Docker and make a prediction
-* Improve the log statements in the source code for this application
-* Configure Kubernetes and create a Kubernetes cluster
-* Deploy a container using Kubernetes and make a prediction
-* Upload a complete Github repo with CircleCI to indicate that your code has been tested
+To run the microservice locally, you should have Docker and Kubernetes (K8s) installed on your Linux machine (or VM). 
 
-You can find a detailed [project rubric, here](https://review.udacity.com/#!/rubrics/2576/view).
+### To run as a standalone Docker container
+* Run the `run_docker.sh` script. This will start up a container with the model app running inside it. 
+* Run the `make_prediction.sh`. You should thus obtain the predicted price for a house with features such as those listed in the file. 
 
-**The final implementation of the project will showcase your abilities to operationalize production microservices.**
-
----
-
-## Setup the Environment
-
-* Create a virtualenv and activate it
-* Run `make install` to install the necessary dependencies
-
-### Running `app.py`
-
-1. Standalone:  `python app.py`
-2. Run in Docker:  `./run_docker.sh`
-3. Run in Kubernetes:  `./run_kubernetes.sh`
-
-### Kubernetes Steps
-
-* Setup and Configure Docker locally
-* Setup and Configure Kubernetes locally
-* Create Flask app in Container
-* Run via kubectl
+### To run on K8s
+* Run the `run_kubernetes.sh` script. This will start up a K8s cluster and a Deployment object per the specs listed in `deploy.yml` file. It will also create a K8s Service object, per the specs contained in the `svc.yml` file. The Service object provides stable networking for the pods wrapped in the Deployment object. 
+* In the `make_prediction.sh` file, change the `PORT` variable from 8000 to 30002 and then run the script. You should get the same output as in the case of a standalone Docker container. 
