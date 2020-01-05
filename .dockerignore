@@ -5,3 +5,5 @@ Makefile
 README.md
 deploy.yml
 svc.yml
+.circleci/
+README.md

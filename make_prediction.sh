@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PORT=8000
+PORT=8000 #change port to 30002 when running against K8s deployment
 echo "Port: $PORT"
 
 # POST method predict

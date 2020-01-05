@@ -1,69 +1,36 @@
+#kubectl get pods 
 
-Name:                   price-predictor-deploy
-Namespace:              default
-CreationTimestamp:      Sun, 05 Jan 2020 11:02:10 +0200
-Labels:                 <none>
-Annotations:            deployment.kubernetes.io/revision: 1
-                        kubectl.kubernetes.io/last-applied-configuration:
-                          {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"price-predictor-deploy","namespace":"default"},"spec":{"m...
-Selector:               app=price-predictor
-Replicas:               10 desired | 10 updated | 10 total | 10 available | 0 unavailable
-StrategyType:           RollingUpdate
-MinReadySeconds:        10
-RollingUpdateStrategy:  1 max unavailable, 1 max surge
-Pod Template:
-  Labels:  app=price-predictor
-  Containers:
-   price-predictor-pod:
-    Image:        195011/price-predictor:1.0
-    Port:         80/TCP
-    Host Port:    0/TCP
-    Environment:  <none>
-    Mounts:       <none>
-  Volumes:        <none>
-Conditions:
-  Type           Status  Reason
-  ----           ------  ------
-  Available      True    MinimumReplicasAvailable
-  Progressing    True    NewReplicaSetAvailable
-OldReplicaSets:  <none>
-NewReplicaSet:   price-predictor-deploy-74fb69f758 (10/10 replicas created)
-Events:
-  Type    Reason             Age   From                   Message
-  ----    ------             ----  ----                   -------
-  Normal  ScalingReplicaSet  43s   deployment-controller  Scaled up replica set price-predictor-deploy-74fb69f758 to 10
+NAME                                      READY   STATUS    RESTARTS   AGE
+price-predictor-deploy-74fb69f758-6l45q   1/1     Running   0          2m7s
+price-predictor-deploy-74fb69f758-v2zwz   1/1     Running   0          2m7s
 
+#kubectl logs price-predictor-deploy-74fb69f758-6l45q
 
-
-
-Name:              kubernetes
-Namespace:         default
-Labels:            component=apiserver
-                   provider=kubernetes
-Annotations:       <none>
-Selector:          <none>
-Type:              ClusterIP
-IP:                10.96.0.1
-Port:              https  443/TCP
-TargetPort:        6443/TCP
-Endpoints:         192.168.65.3:6443
-Session Affinity:  None
-Events:            <none>
-
-
-Name:                     price-predictor-svc
-Namespace:                default
-Labels:                   app=price-predictor
-Annotations:              kubectl.kubernetes.io/last-applied-configuration:
-                            {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"price-predictor"},"name":"price-predictor-svc","namespac...
-Selector:                 app=price-predictor
-Type:                     NodePort
-IP:                       10.110.254.111
-LoadBalancer Ingress:     localhost
-Port:                     <unset>  8080/TCP
-TargetPort:               80/TCP
-NodePort:                 <unset>  30002/TCP
-Endpoints:                10.1.0.54:80,10.1.0.55:80,10.1.0.56:80 + 7 more...
-Session Affinity:         None
-External Traffic Policy:  Cluster
-Events:                   <none>
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+/usr/local/lib/python3.7/site-packages/sklearn/base.py:251: UserWarning: Trying to unpickle estimator DecisionTreeRegressor from version 0.20.3 when using version 0.20.2. This might lead to breaking code or invalid results. Use at your own risk.
+  UserWarning)
+/usr/local/lib/python3.7/site-packages/sklearn/base.py:251: UserWarning: Trying to unpickle estimator GradientBoostingRegressor from version 0.20.3 when using version 0.20.2. This might lead to breaking code or invalid results. Use at your own risk.
+  UserWarning)
+ * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
+ * Restarting with stat
+/usr/local/lib/python3.7/site-packages/sklearn/base.py:251: UserWarning: Trying to unpickle estimator DecisionTreeRegressor from version 0.20.3 when using version 0.20.2. This might lead to breaking code or invalid results. Use at your own risk.
+  UserWarning)
+/usr/local/lib/python3.7/site-packages/sklearn/base.py:251: UserWarning: Trying to unpickle estimator GradientBoostingRegressor from version 0.20.3 when using version 0.20.2. This might lead to breaking code or invalid results. Use at your own risk.
+  UserWarning)
+ * Debugger is active!
+ * Debugger PIN: 137-140-262
+[2020-01-05 14:07:22,570] INFO in app: JSON payload:
+{'CHAS': {'0': 0}, 'RM': {'0': 6.575}, 'TAX': {'0': 296.0}, 'PTRATIO': {'0': 15.3}, 'B': {'0': 396.9}, 'LSTAT': {'0': 4.98}}
+[2020-01-05 14:07:22,613] INFO in app: Inference payload DataFrame:
+   CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+[2020-01-05 14:07:22,639] INFO in app: Scaling Payload:
+   CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+[2020-01-05 14:07:22,649] INFO in app: Predicted house price:
+[20.35373177134412]
+192.168.65.3 - - [05/Jan/2020 14:07:22] "POST /predict HTTP/1.1" 200 -
